@@ -1,76 +1,75 @@
 # Attack Shell (Ani-Shell)
 
-![Attack Shell Logosu](https://example.com/logo.png)
+![Attack Shell Logo](https://r00t-shell.com/wp-content/uploads/2025/02/Attack-Shell-Ani-Shell.png)
 
-**Sürüm:** v1.0-Alpine (Son güncelleme: 24 Şubat 2017)
+**Version:** v1.0-Alpine (Last updated: February 24, 2017)
 
-**Uyarı:** Bu yazılım yalnızca gösterim ve eğitim amaçlıdır. Kullanmadan önce gerekli izinlere sahip olduğunuzdan emin olun ve kendi sorumluluğunuzda kullanın.
+**Warning:** This software is intended for demonstration and educational purposes only. Ensure you have the necessary permissions before use, and use it at your own risk.
 
-## İçindekiler
+## Table of Contents
 
-- [Giriş](#giriş)
-- [Özellikler](#özellikler)
-- [Kurulum ve Yapılandırma](#kurulum-ve-yapılandırma)
-  - [Docker ile Çalıştırma](#docker-ile-çalıştırma)
-  - [Özel `php.ini` Dosyasıyla Yapılandırma](#özel-phpini-dosyasıyla-yapılandırma)
-- [Özelleştirme ve Güvenlik Ayarları](#özelleştirme-ve-güvenlik-ayarları)
-- [Kullanım Kılavuzu](#kullanım-kılavuzu)
-  - [Shell'e Erişim](#shelle-erişim)
-  - [Arayüz Genel Bakışı](#arayüz-genel-bakışı)
-  - [Gelişmiş Özelliklerin Kullanımı](#gelişmiş-özelliklerin-kullanımı)
-  - [Sorun Giderme ve Destek](#sorun-giderme-ve-destek)
-- [Sonuç](#sonuç)
+- [Introduction](#introduction)
+- [Features](#features)
+- [Installation and Configuration](#installation-and-configuration)
+  - [Running with Docker](#running-with-docker)
+  - [Configuring with a Custom `php.ini` File](#configuring-with-a-custom-phpini-file)
+- [Customization and Security Settings](#customization-and-security-settings)
+- [Usage Guide](#usage-guide)
+  - [Accessing the Shell](#accessing-the-shell)
+  - [Interface Overview](#interface-overview)
+  - [Using Advanced Features](#using-advanced-features)
+  - [Troubleshooting and Support](#troubleshooting-and-support)
+- [Conclusion](#conclusion)
 
-## Giriş
+## Introduction
 
-Attack Shell, diğer adıyla Ani-Shell, toplu e-posta gönderimi, web sunucusu fuzzer, dosser, back connect, bind shell ve otomatik rooter gibi benzersiz özelliklerle donatılmış güçlü bir PHP shell'dir. Açık kodlama standartlarına göre tasarlanmıştır, bu da özelleştirmeyi kolaylaştırır; siber güvenlik ve penetrasyon testleriyle ilgilenen hem yeni başlayanlar hem de ileri düzey kullanıcılar için idealdir.
+Attack Shell, also known as Ani-Shell, is a powerful PHP shell equipped with unique features such as mass mailer, web server fuzzer, dosser, back connect, bind shell, and auto rooter. It is designed with open coding standards, making customization straightforward; ideal for both beginners and advanced users interested in cybersecurity and penetration testing.
 
-İster güvenliğin temellerini ilk kez öğreniyor olun, ister kendi ortamınızda kapsamlı testler yapıyor olun, bu araç eğitim ve deneyler için esnek bir platform sunar.
+Whether you're learning the basics of security for the first time or conducting comprehensive tests in your environment, this tool offers a flexible platform for education and experimentation.
 
-## Özellikler
+## Features
 
-- Etkileşimli PHP shell
-- Akıllı dosya yöneticisi
-- Yetki yükseltme için otomatik rooter
-- PHP kodu gizleme
-- Toplu e-posta gönderimi (sorumlu kullanım için)
-- Web sunucusu fuzzer ile güvenlik açıklarını tespit etme
-- Dosser ile DoS saldırılarını simüle etme
-- Bind Shell ve Back Connect özellikleri
-- Özelleştirilebilir güvenlik ayarları (kilit modu, anti-crawler)
-- E-posta izleme ve bildirimleri
-- Toplu kod enjektörü ile kod ekleme veya değiştirme
-- MD5 hash şifreleyici
-- Python Bind-Shell entegrasyonu
+- Interactive PHP shell
+- Intelligent file manager
+- Auto rooter for privilege escalation
+- PHP code obfuscation
+- Mass mailer (for responsible use)
+- Web server fuzzer to identify vulnerabilities
+- Dosser for simulating DoS attacks
+- Bind shell and back connect features
+- Customizable security settings (lock mode, anti-crawler)
+- Email traceback and notifications
+- Mass code injector for adding or modifying code
+- MD5 hash cracker
+- Python bind-shell integration
 
-## Kurulum ve Yapılandırma
+## Installation and Configuration
 
-### Docker ile Çalıştırma
+### Running with Docker
 
-Attack Shell'i hızlı bir şekilde kurmak için Docker kullanarak yerel bir konteynerde çalıştırabilirsiniz. Terminalinizi açın ve aşağıdaki komutu çalıştırın:
+To quickly set up Attack Shell, you can use Docker to run it in a local container. Open your terminal and execute the following command:
 
 ```bash
 docker run -d -p 80:80 --name attack-shell R00t-Shelll/attack-shell
 ```
 
 
-Konteynerin IP adresini öğrenmek için şu komutu çalıştırın:
+To find the container's IP address, run:
 
 ```bash
 docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' attack-shell
 ```
 
+### Configuring with a Custom `php.ini` File
 
-### Özel `php.ini` Dosyasıyla Yapılandırma
-
-Özel PHP ayarlarına ihtiyaç duyuyorsanız, Dockerfile'ı aşağıdaki gibi güncelleyebilirsiniz:
+If you require custom PHP settings, you can update the Dockerfile as follows:
 
 ```dockerfile
 FROM k0st/alpine-apache-php
 
 LABEL maintainer "your-email@example.com"
 
-# Saat diliminizi ayarlayın (örneğin, Europe/Istanbul)
+# Set your timezone (e.g., Europe/Istanbul)
 ENV TZ=Europe/Istanbul
 
 RUN apk add --update --virtual .build-deps tzdata && \
@@ -82,22 +81,47 @@ COPY config/php.ini /usr/local/etc/php/
 COPY . /var/www/html
 ```
 
+**Note:** Replace `your-email@example.com` with your email address and ensure the `php.ini` file is correctly configured.
 
-**Not:** `your-email@example.com` ifadesini kendi e-posta adresinizle değiştirin ve `php.ini` dosyasının doğru şekilde yapılandırıldığından emin olun.
+## Customization and Security Settings
 
-## Özelleştirme ve Güvenlik Ayarları
+Attack Shell comes with the following default settings, which you can modify to suit your needs:
 
-Attack Shell, aşağıdaki varsayılan ayarlarla birlikte gelir ve ihtiyaçlarınıza göre bunları değiştirebilirsiniz:
+1. **Default Login Credentials:** Username: `admin` and Password: `R00t`. It's crucial to change these immediately after installation.
+2. **Lock Mode:** Enabled by default to prevent unauthorized access. Do not disable unless you are certain your security measures are adequate.
+3. **Anti-Crawler Feature:** Disabled by default. Enable it to block automated bots from accessing the shell.
+4. **Customizable Greeting Messages:** Modify the `greetings` variable to personalize the shell's welcome message.
 
-1. **Varsayılan Giriş Bilgileri:** Kullanıcı adı: `admin` ve Şifre: `R00t`. Kurulumdan hemen sonra bunları değiştirmeniz önemlidir.
-2. **Kilit Modu:** Yetkisiz erişimi önlemek için varsayılan olarak etkindir. Güvenlik önlemlerinizin yeterli olduğundan emin değilseniz devre dışı bırakmayın.
-3. **Anti-Crawler Özelliği:** Varsayılan olarak devre dışıdır. Shell'e otomatik botların erişimini engellemek için etkinleştirebilirsiniz.
-4. **Özelleştirilebilir Karşılama Mesajları:** Shell'in karşılama mesajını kişiselleştirmek için `greetings` değişkenini düzenleyin.
+## Usage Guide
 
-## Kullanım Kılavuzu
+### Accessing the Shell
 
-### Shell'e Erişim
+After installation, open your browser and navigate to the IP address or domain where the container is hosted. Log in using the default credentials:
 
-Kurulumdan sonra tarayıcınızı açın ve konteynerin barındırıldığı IP adresine veya domaine gidin. Varsayılan giriş bilgilerini kullanarak oturum açın:
+**Warning:** Immediately change the default login credentials to secure your system.
 
-**Uyarı:** Varsayılan giriş bilgilerini hemen değiştirerek sisteminizi koruyun. 
+### Interface Overview
+
+Upon logging in, you'll be presented with an intuitive interface that provides access to all features, including the file manager, command execution panel, and various tools.
+
+### Using Advanced Features
+
+- **Mass Mailer:** Send bulk emails responsibly. Ensure you have permission to contact recipients.
+- **Web Server Fuzzer:** Test your server for common vulnerabilities.
+- **Dosser:** Simulate Denial of Service attacks in a controlled environment.
+- **Auto Rooter:** Attempt privilege escalation where applicable.
+- **Bind Shell/Back Connect:** Establish reverse or bind shell connections for remote access.
+
+**Note:** Use these features ethically and only on systems you own or have explicit permission to test.
+
+### Troubleshooting and Support
+
+If you encounter issues:
+
+- Verify that your server meets the necessary requirements.
+- Ensure all configurations are correct.
+- Consult the [official GitHub repository](https://github.com/RootShelll) for updates and community support.
+
+## Conclusion
+
+Attack Shell offers a comprehensive suite of tools for those interested in cybersecurity and penetration testing. Always use it responsibly, ethically, and within the bounds of the law. 
